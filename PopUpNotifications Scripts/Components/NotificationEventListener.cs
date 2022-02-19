@@ -1,9 +1,5 @@
-﻿using MissionSystem.Controller;
-using MissionSystem.Data;
-using PopUpNotifications.Controller;
+﻿using PopUpNotifications.Controller;
 using PopUpNotifications.Data;
-using TranslationSystem.Components;
-using TranslationSystem.Controller;
 using UnityEngine;
 
 namespace PopUpNotifications.Components
@@ -12,23 +8,25 @@ namespace PopUpNotifications.Components
     {
         private void Awake()
         {
-            MissionController.OnMissionComplete += ShowMissionCompleteNotification;
+            //Subscribe To Your GameEvents Here
+            //GameManager.OnSomething += ShowNotification;
         }
 
         private void OnDestroy()
         {
-            MissionController.OnMissionComplete -= ShowMissionCompleteNotification;
+            //Unsubscribe To Your GameEvents Here
+            //GameManager.OnSomething -= ShowNotification;
         }
 
-        private static void ShowMissionCompleteNotification(MissionHolder missionComplete)
+        private static void ShowNotification()
         {
-            var title = Translate.GetText("missionComplete", TranslateFormat.ToUpper);
-            var description = missionComplete.Description;
+            var title = "This is a Notification!";
+            var description = "This is the Description";
             
-            PopUpNotificationsController.ME.ShowNotification(title, description, NotificationIcon.Trophy);
+            PopUpNotificationsController.ME.ShowNotification(title, description, NotificationIcon.Information);
         }
 
-        //Testing Stuff
+        //Debug Stuff
        #if UNITY_EDITOR
         private void Update()
         {
@@ -51,11 +49,7 @@ namespace PopUpNotifications.Components
                     NotificationIcon.Warning);
 
             if (Input.GetKeyDown(KeyCode.Alpha5))
-                PopUpNotificationsController.ME.ShowNotification("WARNING MESSAGE", "THIS IS A TEST",
-                    NotificationIcon.Warning);
-
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-                PopUpNotificationsController.ME.ShowNotification("WARNING MESSAGE", "THIS IS A TEST",
+                PopUpNotificationsController.ME.ShowNotification("CHECK MESSAGE", "THIS IS A TEST",
                     NotificationIcon.Check);
         }
         #endif
